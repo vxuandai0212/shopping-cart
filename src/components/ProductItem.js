@@ -4,10 +4,7 @@ import Product from './Product'
 
 const ProductItem = ({ product, onAddToCartClicked }) => (
   <div style={{ marginBottom: 20 }}>
-    <Product
-      title={product.title}
-      price={product.price}
-      quantity={product.inventory} />
+    <Product id={product.id} />
     <button
       onClick={onAddToCartClicked}
       disabled={product.inventory > 0 ? '' : 'disabled'}>

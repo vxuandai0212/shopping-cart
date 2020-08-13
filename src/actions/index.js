@@ -1,4 +1,5 @@
-import shop from '../api/shop'
+import { callGraphQL } from '../api'
+import { GET_PRODUCTS } from '../graphql/query'
 import * as types from '../constants/ActionTypes'
 
 const receiveProducts = products => ({
@@ -7,8 +8,9 @@ const receiveProducts = products => ({
 })
 
 export const getAllProducts = () => dispatch => {
-    shop.getProducts(products => {
-        dispatch(receiveProducts(products))
+    callGraphQL(GET_PRODUCTS, {}).then(data => {
+        console.log(data.data.data)
+        dispatch(receiveProducts(data.data.data.products))
     })
 }
 
@@ -29,12 +31,11 @@ export const checkout = products => (dispatch, getState) => {
     dispatch({
         type: types.CHECKOUT_REQUEST
     })
-    shop.buyProducts(products, () => {
+    
+    setTimeout(() => {
         dispatch({
-        type: types.CHECKOUT_SUCCESS,
-        cart
+            type: types.CHECKOUT_SUCCESS,
+            cart
         })
-        // Replace the line above with line below to rollback on failure:
-        // dispatch({ type: types.CHECKOUT_FAILURE, cart })
-    })
+    }, 1000)
 }
