@@ -9,7 +9,6 @@ const receiveProducts = products => ({
 
 export const getAllProducts = () => dispatch => {
     callGraphQL(GET_PRODUCTS, {}).then(data => {
-        console.log(data.data.data)
         dispatch(receiveProducts(data.data.data.products))
     })
 }

@@ -1,16 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { makeProductState } from '../selector'
 
-const Product = ({ price, quantity, title }) => (
+const Product = ({ product }) => (
   <div>
-    {title} - &#36;{price}{quantity ? ` x ${quantity}` : null}
+    {product.title} - &#36;{product.price}{product.quantity ? ` x ${product.quantity}` : null}
   </div>
 )
 
 Product.propTypes = {
-  price: PropTypes.number,
-  quantity: PropTypes.number,
-  title: PropTypes.string
+  product: PropTypes.object.isRequired
 }
 
-export default Product
+const makeMapStateToProps = () => {
+  const getProductState = makeProductState()
+  const mapStateToProps = (state, props) => {
+    return {
+        product: getProductState(state, props)
+    }
+  }
+  return mapStateToProps
+}
+
+export default connect(makeMapStateToProps)(Product)
