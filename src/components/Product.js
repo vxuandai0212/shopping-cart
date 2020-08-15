@@ -5,7 +5,7 @@ import { makeProductState } from '../selector'
 
 const Product = ({ product }) => (
   <div>
-    {product.title} - &#36;{product.price}{product.quantity ? ` x ${product.quantity}` : null}
+    {product.title} - &#36;{product.price}{product.inventory ? ` x ${product.inventory}` : null}
   </div>
 )
 
