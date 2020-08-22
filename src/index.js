@@ -7,7 +7,10 @@ import thunk from 'redux-thunk'
 import reducer from './reducers'
 import { getAllProducts } from './actions'
 import App from './containers/App'
+import ChickenScreen from './containers/chicken/Chicken'
+import NotFoundPage from './components/404-page/404-page'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 const middleware = [ thunk ];
 if (process.env.NODE_ENV !== 'production') {
@@ -25,7 +28,15 @@ store.dispatch(getAllProducts())
 
 render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <Switch>
+        <Route exact path="/" component={App} />
+        <Route path="/chicken" component={ChickenScreen} />
+        <Route>
+          <NotFoundPage />
+        </Route>
+      </Switch>
+    </Router>
   </Provider>,
   document.getElementById('root')
 )
