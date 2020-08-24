@@ -1,7 +1,6 @@
-
-// import './OrbitControls'
 import { TweenMax, Power4 } from 'gsap'
 import * as THREE from 'three'
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 
 //THREEJS RELATED VARIABLES 
 
@@ -15,7 +14,8 @@ var scene,
    backLight,
    light,
    renderer,
-   container;
+   container,
+   controls
 
 //SCENE
 var floor, bird1, bird2, bird3
@@ -63,9 +63,8 @@ function init() {
    document.addEventListener('touchstart', handleTouchStart, false);
    document.addEventListener('touchend', handleTouchEnd, false);
    document.addEventListener('touchmove', handleTouchMove, false);
-   /*
-   controls = new THREE.OrbitControls( camera, renderer.domElement);
-   //*/
+   
+   controls = new OrbitControls( camera, renderer.domElement);
 }
 
 function onWindowResize() {
@@ -429,7 +428,7 @@ function loop() {
 }
 
 function render() {
-   //controls.update();
+   controls.update();
    renderer.render(scene, camera);
 }
 
